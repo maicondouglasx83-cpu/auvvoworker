@@ -1,0 +1,72 @@
+# Bloquear acesso a arquivos sensiveis (.env, logs, .sql, .md, .json)
+<FilesMatch "\.(env|log|sql|md|json|lock)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Impedir listagem de diretorios
+Options -Indexes
+
+# Headers de seguranca HTTP
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always unset X-Powered-By
+    # HSTS — descomente quando HTTPS estiver ativo no servidor
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# Redirect HTTP para HTTPS (descomente quando HTTPS ativo)
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteCond %{HTTP:X-Forwarded-Proto} !https
+#     RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+# </IfModule>
+
+RewriteEngine On
+
+# Bloquear acesso a diretorios ocultos (exceto .well-known)
+<IfModule mod_rewrite.c>
+    RewriteRule "(^|/)\.(?!well-known)" - [F]
+</IfModule>
+
+# ----------------------------------------------------------
+# Friendly URLs: /dashboard -> dashboard.php
+# ----------------------------------------------------------
+
+# Don't rewrite existing files/folders
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Allow calling *.php directly (optional)
+RewriteRule \.php$ - [L]
+
+# Map single-segment routes to .php
+RewriteRule ^([a-zA-Z0-9_-]+)$ $1.php [L,QSA]
+
+# Map two-segment routes (ex: resetar-senha)
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)$ $1.php [L,QSA]
+
+<IfModule Litespeed>
+    RewriteEngine On
+    RewriteRule .* - [E=noabort:1, E=noconnectiontimeout:1]
+</IfModule>
+
+# PHP: tempo maximo de execucao para chamadas de IA (5 min)
+<IfModule mod_php.c>
+    php_value max_execution_time 300
+    php_value max_input_time 300
+</IfModule>
+<IfModule php_module>
+    php_value max_execution_time 300
+    php_value max_input_time 300
+</IfModule>

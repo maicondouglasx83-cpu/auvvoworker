@@ -1,0 +1,65 @@
+ROTACAO DE CREDENCIAIS — Auvvo AI
+===================================
+
+As credenciais abaixo estavam expostas no arquivo .env.example commitado no git.
+TODAS DEVEM SER REVOGADAS E SUBSTITUIDAS IMEDIATAMENTE.
+
+Procedimento para cada servico:
+1) Gerar nova chave no painel do servico
+2) Atualizar .env com a nova chave
+3) Verificar se o sistema funciona com a nova chave
+4) Revogar a chave antiga no painel do servico
+
+---
+
+1. OPENROUTER (https://openrouter.ai/settings/keys)
+   - Chave exposta: sk-or-v1-...
+   - Ação: Gerar nova API key em https://openrouter.ai/settings/keys
+   - Atualizar: OPENROUTER_API_KEY no .env
+   - Revogar chave antiga no painel
+
+2. EVOLUTION API (WhatsApp)
+   - Chave exposta: HqNbkNK6geOrfwSvS0QHLLvEZrPrjdFa
+   - Ação: Gerar nova API key no painel Evolution
+   - Atualizar: EVOLUTION_API_KEY no .env
+   - WEBHOOK_SECRET deve ser UM VALOR DIFERENTE (nao reutilizar a API key)
+   - Gerar webhook secret: openssl rand -hex 32
+   - Atualizar: WEBHOOK_SECRET no .env
+   - Configurar o novo secret no painel Evolution (campo webhookSecret)
+
+3. ABACATEPAY (https://app.abacatepay.com/)
+   - Chave exposta: abc_prod_...
+   - Ação: Gerar nova API key no painel AbacatePay
+   - Atualizar: ABACATEPAY_API_KEY no .env
+   - Gerar novo webhook secret e atualizar ABACATEPAY_WEBHOOK_QUERY_SECRET
+   - Revogar chave antiga no painel
+
+4. SMTP HOSTINGER
+   - Senha exposta: "$ABl$v;j4y"
+   - Ação: Alterar senha do email contato@auvvo.com no painel Hostinger
+   - Atualizar: SMTP_PASS no .env
+
+5. GOOGLE OAUTH (https://console.cloud.google.com/)
+   - Client ID e Secret expostos
+   - Ação: Gerar novas credenciais OAuth 2.0 no Google Cloud Console
+   - Atualizar: GOOGLE_OAUTH_CLIENT_ID e GOOGLE_OAUTH_CLIENT_SECRET no .env
+   - Revogar credenciais antigas no console
+
+6. WORKER_HMAC_SECRET
+   - Chave exposta: AUVVO-INTERNAL-WORKER-V1
+   - Ação: Gerar novo segredo: openssl rand -hex 32
+   - Atualizar: WORKER_HMAC_SECRET no .env e no .env do worker
+
+7. BANCO DE DADOS
+   - Host, usuario e senha expostos
+   - Ação: Alterar senha do usuario MySQL no painel Hostinger
+   - Atualizar: DB_PASS no .env
+   - O IP exposto (212.85.3.45) nao pode ser alterado, mas avalie restringir
+     acesso ao MySQL por IP (whitelist) no firewall da Hostinger
+
+---
+
+IMPORTANTE: Apos rotacionar todas as chaves, execute:
+  git log --all --full-history -- .env.example
+para verificar se ainda ha copias das credenciais antigas no historico git.
+Considere usar git filter-branch ou BFG Repo-Cleaner para remover do historico.

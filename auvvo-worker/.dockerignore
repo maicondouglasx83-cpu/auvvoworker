@@ -1,0 +1,8 @@
+node_modules
+.env
+.env.worker
+*.log
+.git
+README.md
+scripts/
+ecosystem.config.cjs

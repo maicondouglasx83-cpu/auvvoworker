@@ -1,0 +1,44 @@
+services:
+  auvvo-worker:
+    build: .
+    image: auvvo-worker:latest
+    container_name: auvvo-worker
+    restart: unless-stopped
+
+    # Variáveis de ambiente — copie .env.worker.example para .env.worker e preencha
+    env_file:
+      - .env.worker
+
+    volumes:
+      # Persiste o heartbeat entre restarts
+      - worker-storage:/app/storage
+
+    # Limites de memória (ajuste conforme o VPS)
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 64M
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    healthcheck:
+      test: >
+        node -e "
+          const fs=require('fs');
+          const p='/app/storage/worker_heartbeat.txt';
+          if(!fs.existsSync(p)) process.exit(1);
+          const age=(Date.now()/1000)-parseInt(fs.readFileSync(p,'utf8')||'0');
+          process.exit(age>180?1:0)"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  worker-storage:

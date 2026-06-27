@@ -1,0 +1,102 @@
+{
+  "design_system": {
+    "meta": {
+      "name": "Auvvo AI SaaS Design System",
+      "style": "Light Glassmorphism with Teal-Lavender Accents",
+      "personality": "Clean, modern, trustworthy, tech-forward but warm and accessible",
+      "aesthetic_direction": "Inspired by Web3 design trends. White frosted glass panels floating over soft blurred background. Subtle teal-lavender gradients for primary actions. Muted neutral text for readability."
+    },
+    "color": {
+      "background": {
+        "page": "#F3F4F6",
+        "landing": "#FAFAFA",
+        "note": "Soft neutral grays. Landing page slightly lighter than dashboard."
+      },
+      "surface": {
+        "card": "rgba(255, 255, 255, 0.75)",
+        "card_hover": "rgba(255, 255, 255, 0.9)",
+        "solid": "#FFFFFF",
+        "glass": "backdrop-filter: blur(24px); background: rgba(255, 255, 255, 0.75)",
+        "note": "White translucent cards with glassmorphism effect."
+      },
+      "accent": {
+        "primary": "#9EDCD9",
+        "secondary": "#DCD6FA",
+        "tertiary": "#FCD34D",
+        "gradient_primary": "linear-gradient(135deg, #9EDCD9 0%, #DCD6FA 100%)",
+        "note": "Teal mint as primary, soft lavender as secondary, gold for highlights."
+      },
+      "text": {
+        "primary": "#1A1A1E",
+        "secondary": "#5A5A62",
+        "muted": "#8E8E9A",
+        "on_accent": "#1A1A1E",
+        "note": "Near-black for headings, gray scale for body text."
+      },
+      "semantic": {
+        "success": "#10B981",
+        "success_bg": "rgba(212, 247, 232, 0.5)",
+        "danger": "#EF4444",
+        "danger_bg": "rgba(254, 226, 226, 0.5)",
+        "warning": "#F59E0B",
+        "warning_bg": "rgba(254, 243, 199, 0.5)",
+        "info": "#3B82F6"
+      },
+      "border": {
+        "default": "rgba(255, 255, 255, 0.9)",
+        "subtle": "rgba(0, 0, 0, 0.05)",
+        "note": "White borders on cards, subtle separators with low opacity black."
+      }
+    },
+    "typography": {
+      "font_families": {
+        "body": "'Inter', sans-serif",
+        "note": "Inter for all text — excellent readability across sizes."
+      },
+      "scale": {
+        "h1": { "size": "3.5rem", "weight": 700, "line_height": "1.1", "letter_spacing": "-0.03em" },
+        "h2": { "size": "2.25rem", "weight": 600, "line_height": "1.2", "letter_spacing": "-0.02em" },
+        "h3": { "size": "1.25rem", "weight": 500, "line_height": "1.4" },
+        "body": { "size": "0.875rem", "weight": 400, "line_height": "1.6" },
+        "label": { "size": "0.75rem", "weight": 600, "letter_spacing": "0.05em" }
+      }
+    },
+    "spacing": {
+      "page_padding": "32px horizontal on desktop, 16px on mobile",
+      "card_padding": "24px",
+      "grid_gap": "20px",
+      "element_gap": "12px"
+    },
+    "shape": {
+      "border_radius": {
+        "xl": "32px",
+        "lg": "24px",
+        "md": "16px",
+        "sm": "8px",
+        "pill": "9999px"
+      }
+    },
+    "elevation": {
+      "soft": "0 10px 40px -10px rgba(0, 0, 0, 0.05)",
+      "card": "0 4px 20px rgba(0, 0, 0, 0.03)",
+      "hover": "0 20px 50px -15px rgba(0, 0, 0, 0.12)",
+      "inner_light": "inset 0 1px 1px rgba(255, 255, 255, 1)"
+    },
+    "layout": {
+      "app_shell": "CSS Grid: 280px sidebar (fixed), 1fr main content area",
+      "max_width_content": "1000px",
+      "wizard_layout": "Narrow centered column (max-width 600px)"
+    },
+    "motion": {
+      "transition_default": "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+      "page_enter": "animation: fadeUp 0.6s ease-out forwards"
+    },
+    "design_principles": [
+      "LIGHT & CLEAN: The UI is fundamentally light mode with white glassmorphism panels. Clean, airy, modern.",
+      "GLASS SURFACES: Cards and panels are translucent white with subtle borders. Shadows create depth without being heavy.",
+      "TEAL-LAVENDER ACCENTS: Primary actions use the teal-to-lavender gradient. Semantic colors (green/red/yellow) for status.",
+      "INTER TYPOGRAPHY: Inter for all text — geometric, highly legible, modern.",
+      "WIZARD FOCUS: When creating an agent, the form takes center stage with a narrow focused layout."
+    ]
+  }
+}

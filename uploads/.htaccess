@@ -1,0 +1,17 @@
+# Impedir listagem de diretorios
+Options -Indexes
+
+# Bloqueia a execucao de scripts PHP e outros executaveis na pasta de uploads
+<FilesMatch "\.(php|php[34578]|phtml|phar|pl|py|jsp|asp|aspx|sh|bash|cgi)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Deny,Allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Forca o download ou exibicao segura para arquivos comuns
+AddType text/plain .csv
+AddType text/plain .txt

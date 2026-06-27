@@ -1,0 +1,38 @@
+# ============================================================
+# Auvvo AI — .gitignore
+# ============================================================
+
+# Credenciais e ambiente — NUNCA versionar
+.env
+*.env.local
+auvvo-worker/.env.worker
+
+# Arquivos de usuários (uploads de conhecimento, CSVs de campanha)
+uploads/knowledge/
+uploads/campaigns/
+uploads/*.pdf
+uploads/*.csv
+uploads/*.docx
+uploads/*.txt
+
+# Logs
+*.log
+logs/
+
+# Node
+node_modules/
+auvvo-worker/node_modules/
+
+# Cache e temporários
+storage/
+*.tmp
+*.cache
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Scratch local do planejamento
+.planning/scratch/
