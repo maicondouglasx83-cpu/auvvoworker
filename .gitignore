@@ -5,7 +5,7 @@
 # Credenciais e ambiente — NUNCA versionar
 .env
 *.env.local
-auvvo-worker/.env.worker
+# auvvo-worker/.env.worker
 
 # Arquivos de usuários (uploads de conhecimento, CSVs de campanha)
 uploads/knowledge/
