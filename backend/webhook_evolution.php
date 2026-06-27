@@ -19,6 +19,9 @@ require_once __DIR__ . '/ai_queue.inc.php';
 require_once __DIR__ . '/conversation_history.inc.php';
 require_once __DIR__ . '/ai_reply.inc.php';
 
+// === DEBUG: log de entrada bruta (remover depois de diagnosticar) ===
+@file_put_contents(__DIR__ . '/webhook_arrival.log', date('Y-m-d H:i:s') . ' | IP:' . ($_SERVER['REMOTE_ADDR'] ?? '?') . ' | UA:' . ($_SERVER['HTTP_USER_AGENT'] ?? '?') . ' | CT:' . ($_SERVER['CONTENT_TYPE'] ?? '?') . ' | Method:' . ($_SERVER['REQUEST_METHOD'] ?? '?') . "\n", FILE_APPEND);
+
 $auvvoWebhookRunRouter = !defined('AUVVO_WEBHOOK_SKIP_HTTP_ROUTER') || !AUVVO_WEBHOOK_SKIP_HTTP_ROUTER;
 
 if ($auvvoWebhookRunRouter) {
@@ -76,6 +79,10 @@ $GLOBALS['auvvo_webhook_body_sent'] = false;
 $webhook_instance_token = trim((string)($event['instanceToken'] ?? ''));
 /** @var string Nome salvo no Evolution, UUID instanceId ou vazio. */
 $instance_slug = trim((string)($event['instanceName'] ?? $event['instance'] ?? $event['instanceId'] ?? ''));
+
+// === DEBUG: log do event type (remover depois) ===
+@file_put_contents(__DIR__ . '/webhook_arrival.log', '  -> event_type:' . $event_type . ' | instanceToken:' . substr($webhook_instance_token, 0, 8) . '... | instance_slug:' . $instance_slug . ' | keys:' . implode(',', array_keys($data)) . "\n", FILE_APPEND);
+
 } // $auvvoWebhookRunRouter (payload Evolution)
 
 /** Extrai texto legível de payloads WhatsApp (texto, legenda, botões). */
